@@ -1,39 +1,28 @@
-# работа с файлами:
-# (1-й параметр) if text.txt не будет, то он создасться авто-ки, (2-й параметр) способ открытия файла
-# file = open('data/text.txt', 'w') # 'w' - открываю для чения
+# try:
+#     x = int(input("Введите число: "))
+#     x += 5
+#     print(x)
+# except ValueError: #+ Отслеживаю ошибку ValueError
+#     print("Введите число")
 
-# #+ информация перезаписывается полностью, каждый раз:
-# file.write("Hello World\n")
-# file.write("!!!!!")
+def get_input():
+    x = int(input("Введите число (x): "))
+    y = int(input("Введите число (y): "))
+    return [x, y]
 
-# file.close() # закрываю файл, чтоб не было утечки памяти
-
-#+ добавить информацию к текущей (метод 'a'):
-# file = open('data/text.txt', 'a') # 'a' (append) - добавление инфы
-
-# #+ информация перезаписывается полностью, каждый раз:
-# file.write("Hello World\n")
-# file.write("!!!!!")
-
-# file.close() # закрываю файл, чтоб не было утечки памяти
-
-# --------
-
-# data = input("Введите текст: ")
-
-# file = open('data/text.txt', 'a')
-
-# file.write(f"{data}\n")
-
-# file.close() # закрываю файл, чтоб не было утечки памяти
-
-#+ считывание данных:
-file = open('data/text.txt', 'r') # 'r' (read) - чтение файла
-
-# print(file.read()) # в скобках read можно указывать число (сколько вывести символов)
-
-#+ для построчного считывания файла:
-for line in file:
-    print(line)
-
-file.close()
+x = 0
+while x == 0:
+    try:
+        list = get_input()
+        [x, y] = list
+        res = x / y
+        print(round(res))
+        break
+    except ValueError:
+        print("Введите число")
+        x = 0
+    except  ZeroDivisionError:
+        print("Деление на 0. Решения нет")
+        x = 0
+    finally:
+        print("finally")
