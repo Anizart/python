@@ -1,28 +1,18 @@
+# ТАК РАБОТАТЬ НЕ БУДЕТ, Т.К. ПЕРЕМЕНАЯ file ОБЪЯВЛЕНА ТОЛЬКО В БЛОКЕ try, В finally НЕ ДОСТУПНА!
 # try:
-#     x = int(input("Введите число: "))
-#     x += 5
-#     print(x)
-# except ValueError: #+ Отслеживаю ошибку ValueError
-#     print("Введите число")
+#     file = open('text.txt', 'r') #+ 'r' ( read ) - не создаёт не существ. файл, только читать
 
-def get_input():
-    x = int(input("Введите число (x): "))
-    y = int(input("Введите число (y): "))
-    return [x, y]
+#     file.read()
 
-x = 0
-while x == 0:
-    try:
-        list = get_input()
-        [x, y] = list
-        res = x / y
-        print(round(res))
-        break
-    except ValueError:
-        print("Введите число")
-        x = 0
-    except  ZeroDivisionError:
-        print("Деление на 0. Решения нет")
-        x = 0
-    finally:
-        print("finally")
+    
+# except FileNotFoundError:
+#     print("Файл не найден")
+# finally:
+#     file.close() #+ пишу сдесь, т.к. в try ошибка срабатывает на 1-й строке, а дальше код не пойдёт!
+
+#! ТАК БУДЕТ РАБОТАТЬ, С МЕНЕДЖЕРОМ "With ... as":
+try:
+    with open("data/text.txt", "r", encoding="utf-8") as file: #+ Этот менеджер сам открывает и сам закрывает файл!
+        print(file.read())
+except FileNotFoundError:
+    print("Файл не найден")
